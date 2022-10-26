@@ -44,7 +44,7 @@ export default function UsersList() {
   return (
     <>
       <h1>UsersList</h1>
-      {isLoading && <p>Loading..</p>}
+      {isLoading && <p>Loading...</p>}
       {isError && <p className="errmsg">{error?.data?.message}</p>}
       {isSuccess && content}
     </>
