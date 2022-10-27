@@ -54,5 +54,5 @@ export default function Note({ noteId }) {
     );
   }
 
-  return null;
+  return <p>/notes. Loading...</p>;
 }

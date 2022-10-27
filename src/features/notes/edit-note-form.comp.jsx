@@ -1,18 +1,13 @@
 import { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 import { useUpdateNoteMutation, useDeleteNoteMutation } from './notesApiSlice';
 import { ROLES } from '../../config/roles';
 
-const USER_REGEX = /^[A-z]{3,20}$/;
-const PASS_REGEX = /^[A-z0-9!@#$%]{4,12}$/;
-
 export default function EditNoteForm({ users, note }) {
-
   const navigate = useNavigate();
-  const params = useParams()
 
   const [
     updateNote,
@@ -24,15 +19,10 @@ export default function EditNoteForm({ users, note }) {
     { isSuccess: isDelSuccess, isError: isDelError, error: delError }
   ] = useDeleteNoteMutation();
 
-  const [title, setTitle] = useState(note.title)
+  const [title, setTitle] = useState(note.title);
   const [text, setText] = useState(note.text);
-  const [completed, setCompleted] = useState(note.completed)
-  const [userId, setUserId] = useState(note.user._id)
-
-  console.log(userId)
-  console.log(params.id)
-
-
+  const [completed, setCompleted] = useState(note.completed);
+  const [userId, setUserId] = useState(note.user._id);
 
   useEffect(() => {
     if (isSuccess || isDelSuccess) {
@@ -52,46 +42,57 @@ export default function EditNoteForm({ users, note }) {
 
   const onSaveNoteClick = async ev => {
     ev.preventDefault();
-
-  if(canSave){
-    await updateNote({
-      id: note.id,
-      title,
-      text,
-      completed,
-      user: userId
-    });
-   }
+    if (canSave) {
+      await updateNote({
+        id: note.id,
+        title,
+        text,
+        completed,
+        user: userId
+      });
+    }
   };
 
-  const onDeleteNoteClick = async (ev) => {
+  const onDeleteNoteClick = async ev => {
     ev.preventDefault();
-
-    // console.log(ev.target)
-    await deleteNote({ id: note.id });  
+    await deleteNote({ id: note.id });
   };
 
-const created = new Date(note.createdAt).toLocaleString('en-US', { day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' })
-const updated = new Date(note.updatedAt).toLocaleString('en-US', { day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' })
+  const created = new Date(note.createdAt).toLocaleString('en-US', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric'
+  });
+  const updated = new Date(note.updatedAt).toLocaleString('en-US', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric'
+  });
 
-   // const options = users.map(user => {
-   //      return (
-   //          <option
-   //              key={user.id}
-   //              value={user.id}
-   //          > {user.username}</option >
-   //      )
-   //  })
+  const options = users.map(user => {
+    return (
+      <option key={user.id} value={user.id}>
+        {user.username}
+      </option>
+    );
+  });
 
   const errClass = isError || isDelError ? 'errmsg' : 'offscreen';
-  const validTitleClass = !title ? "form__input--incomplete" : '';
-  const validTextClass = !text ? "form__input--incomplete" : '';
+  const validTitleClass = !title ? 'form__input--incomplete' : '';
+  const validTextClass = !text ? 'form__input--incomplete' : '';
 
   // if <left-side> is null / undefined, return '', else return <left-side>
   const errContent = (error?.data?.message || delError?.data?.message) ?? '';
 
-  const content = (<>
-   <p className={errClass}>{errContent}</p>
+  return (
+    <>
+      <p className={errClass}>{errContent}</p>
 
       <form className="form" onSubmit={onSaveNoteClick}>
         <div className="form__title-row">
@@ -145,37 +146,45 @@ const updated = new Date(note.updatedAt).toLocaleString('en-US', { day: 'numeric
               htmlFor="note-completed"
             >
               Work Completed:
-                <input
-                  className="form__checkbox"
-                  id="note-completed"
-                  name="completed"
-                  type="checkbox"
-                  checked={completed}
-                  onChange={onCompletedChange}
-                />
+              <input
+                className="form__checkbox"
+                id="note-completed"
+                name="completed"
+                type="checkbox"
+                checked={completed}
+                onChange={onCompletedChange}
+              />
             </label>
-
-            <label className="form__label form__checkbox-container" htmlFor="note-username">
+            <label
+              className="form__label form__checkbox-container"
+              htmlFor="note-username"
+            >
               Assigned to:
             </label>
-            <select 
-              name="username" 
+            <select
+              name="username"
               id="note-username"
               className="form__select"
               value={userId}
               onChange={onUserIdChange}
             >
-              {/* {options} */}
+              {options}
             </select>
           </div>
           <div className="form__divider">
-            <p className="form__created">Created:<br />{created}</p>
-            <p className="form__updated">Updated:<br />{updated}</p>
+            <p className="form__created">
+              Created:
+              <br />
+              {created}
+            </p>
+            <p className="form__updated">
+              Updated:
+              <br />
+              {updated}
+            </p>
           </div>
-        </div>      
+        </div>
       </form>
-  </>
+    </>
   );
-
-  return content;
 }
