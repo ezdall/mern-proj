@@ -9,7 +9,14 @@ export default function NoteList() {
     isSuccess,
     isError,
     error
-  } = useGetNotesQuery();
+  } = useGetNotesQuery(undefined, {
+    pollingInterval: 15 * 1000,
+    refetchOnFocus: true,
+    refetchOnMountOrArgChange: true
+  });
+
+
+
 
   console.log(useGetNotesQuery());
 
