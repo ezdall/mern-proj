@@ -19,7 +19,6 @@ export default function UsersList() {
 
   if (isSuccess) {
     const { ids } = users;
-    // console.log(users);
 
     const tableContent = ids?.length
       ? ids.map(userId => <User key={userId} userId={userId} />)

@@ -7,10 +7,12 @@ import { useUpdateUserMutation, useDeleteUserMutation } from './usersApiSlice';
 import { ROLES } from '../../config/roles';
 
 const USER_REGEX = /^[A-z]{3,20}$/;
-const PASS_REGEX = /^[A-z0-9!@#$%]{4,12}$/;
+const PASS_REGEX = /^[A-z0-9!@#$%]{6,12}$/;
 
 export default function EditUserForm({ user }) {
   const navigate = useNavigate();
+
+  // console.log('user', user);
 
   const [
     updateUser,
@@ -19,7 +21,7 @@ export default function EditUserForm({ user }) {
 
   const [
     deleteUser,
-    { isSucces: isDelSuccess, isError: isDelError, error: delError }
+    { isSuccess: isDelSuccess, isError: isDelError, error: delError }
   ] = useDeleteUserMutation();
 
   const [username, setUsername] = useState(user.username);
@@ -110,7 +112,11 @@ export default function EditUserForm({ user }) {
   // if <left-side> is null / undefined, return '', else return <left-side>
   const errContent = (error?.data?.message || delError?.data?.message) ?? '';
 
-  const content = (
+  if (isLoading) {
+    return <p>/users/:id. Loading....</p>;
+  }
+
+  return (
     <>
       <p className={errClass}>{errContent}</p>
 
@@ -150,7 +156,7 @@ export default function EditUserForm({ user }) {
         />
         <label htmlFor="password">
           Password: <span className="nowrap">[empty = no change]</span>{' '}
-          <span className="nowrap">[4-12 chars incl. !@#$%]</span>
+          <span className="nowrap">[6-12 chars incl. !@#$%]</span>
         </label>
         <input
           className={`form__input ${validPassClass}`}
@@ -193,6 +199,4 @@ export default function EditUserForm({ user }) {
       </form>
     </>
   );
-
-  return content || null;
 }
