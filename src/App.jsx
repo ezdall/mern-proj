@@ -8,6 +8,7 @@ import Public from './components/public.comp';
 //
 import Login from './features/login.comp';
 import Welcome from './features/welcome.comp';
+import Prefetch from './features/prefetch.comp';
 //
 import UsersList from './features/users/users-list.comp';
 import NewUserForm from './features/users/new-user-form.comp';
@@ -23,19 +24,21 @@ export default function App() {
       <Route path="/" element={<Layout />}>
         <Route index element={<Public />} />
         <Route path="login" element={<Login />} />
-        <Route path="dash" element={<DashLayout />}>
-          <Route index element={<Welcome />} />
-          {/* /dash/notes/:noteId  */}
-          <Route path="notes">
-            <Route index element={<NoteList />} />
-            <Route path="new" element={<NewNote />} />
-            <Route path=":id" element={<EditNote />} />
-          </Route>
-          {/* /dash/users/:userId  */}
-          <Route path="users">
-            <Route index element={<UsersList />} />
-            <Route path="new" element={<NewUserForm />} />
-            <Route path=":id" element={<EditUser />} />
+        <Route element={<Prefetch />}>
+          <Route path="dash" element={<DashLayout />}>
+            <Route index element={<Welcome />} />
+            {/* /dash/notes/:noteId  */}
+            <Route path="notes">
+              <Route index element={<NoteList />} />
+              <Route path="new" element={<NewNote />} />
+              <Route path=":id" element={<EditNote />} />
+            </Route>
+            {/* /dash/users/:userId  */}
+            <Route path="users">
+              <Route index element={<UsersList />} />
+              <Route path="new" element={<NewUserForm />} />
+              <Route path=":id" element={<EditUser />} />
+            </Route>
           </Route>
         </Route>
       </Route>
