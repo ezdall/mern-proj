@@ -16,16 +16,7 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [errMsg, setErrMsg] = useState('');
 
-  const [login, { isLoading, isSuccess }] = useLoginMutation();
-
-  useEffect(() => {
-    // reset, redirect
-    if (isSuccess) {
-      setUsername('');
-      setPassword('');
-      navigate('/dash');
-    }
-  }, [isSuccess, navigate]);
+  const [login, { isLoading }] = useLoginMutation();
 
   useEffect(() => {
     userRef.current.focus();
@@ -45,22 +36,22 @@ export default function Login() {
       const { accessToken } = await login({ username, password }).unwrap();
       dispatch(setCredentials({ accessToken }));
 
-      // // reset, redirect
-      // setUsername('');
-      // setPassword('');
-      // navigate('/dash');
+      // reset, redirect
+      setUsername('');
+      setPassword('');
+      navigate('/dash');
     } catch (err) {
       if (!err.status) {
         setErrMsg('no server response');
       }
       if (err.status === 400) {
-        setErrMsg('missing username or password');
+        setErrMsg('Missing username or password');
       }
       if (err.status === 401) {
-        setErrMsg('unauthorized');
+        setErrMsg('Unauthorized');
       }
-      setErrMsg(err.data?.message);
-      // errRef.current.focus();
+      setErrMsg(err?.data?.error);
+      errRef.current.focus();
     }
   };
 
