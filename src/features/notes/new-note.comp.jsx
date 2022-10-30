@@ -8,5 +8,5 @@ export default function NewNote() {
 
   if (users?.length) return <NewNoteForm users={users} />;
 
-  return <p> /notes/new. Loading...</p>;
+  return <p> /notes/new. No User...</p>;
 }

@@ -37,5 +37,5 @@ export default function User({ userId }) {
     );
   }
 
-  return <p>/users. Loading...</p>;
+  return <p>/users. Loading...No user yet...</p>;
 }

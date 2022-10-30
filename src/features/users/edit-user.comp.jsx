@@ -11,15 +11,8 @@ export default function EditUser() {
 
   const user = useSelector(state => selectUserById(state, id));
 
-  // check if user exist, else return to /users
-  // useEffect(() => {
-  //   if (!user) {
-  //     navigate('/dash/users');
-  //   }
-  // }, [navigate, user]);
-
   if (user) {
     return <EditUserForm user={user} />;
   }
-  return <p>/users/:id. Loading...</p>;
+  return <p>/users/:id. Loading... No User yet...</p>;
 }

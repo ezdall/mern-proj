@@ -10,7 +10,7 @@ const notesAdapter = createEntityAdapter({
   }
 });
 
-const initiateState = notesAdapter.getInitialState();
+const initialState = notesAdapter.getInitialState();
 
 export const notesApiSlice = apiSlice.injectEndpoints({
   endpoints: builder => ({
@@ -22,10 +22,11 @@ export const notesApiSlice = apiSlice.injectEndpoints({
         return response.status === 200 && !result.isError;
       },
       transformResponse(responseData) {
+        // create id from _id
         const loadNotes = responseData.map(note => {
           return { ...note, id: note._id };
         });
-        return notesAdapter.setAll(initiateState, loadNotes);
+        return notesAdapter.setAll(initialState, loadNotes);
       },
       providesTags(result, error, arg) {
         if (result?.ids) {
@@ -39,12 +40,12 @@ export const notesApiSlice = apiSlice.injectEndpoints({
     }),
     // crud add
     addNewNote: builder.mutation({
-      query(initialNoteData) {
+      query(initialNote) {
         return {
           url: '/notes',
           method: 'POST',
           body: {
-            ...initialNoteData
+            ...initialNote
           }
         };
       },
@@ -52,11 +53,11 @@ export const notesApiSlice = apiSlice.injectEndpoints({
     }),
     // update
     updateNote: builder.mutation({
-      query(initialNoteData) {
+      query(initialNote) {
         return {
-          url: `/notes/${initialNoteData.id}`,
+          url: `/notes/${initialNote.id}`,
           method: 'PATCH',
-          body: { ...initialNoteData }
+          body: { ...initialNote }
         };
       },
       invalidatesTags(result, error, arg) {
@@ -68,8 +69,8 @@ export const notesApiSlice = apiSlice.injectEndpoints({
       query({ id }) {
         return {
           url: `/notes/${id}`,
-          method: 'DELETE'
-          // body: { id }
+          method: 'DELETE',
+          body: { id }
         };
       },
       invalidatesTags(result, error, arg) {
@@ -100,4 +101,4 @@ export const {
   selectAll: selectAllNotes,
   selectById: selectNoteById,
   selectIds: selectNoteIds
-} = notesAdapter.getSelectors(state => selectNotesData(state) ?? initiateState);
+} = notesAdapter.getSelectors(state => selectNotesData(state) ?? initialState);

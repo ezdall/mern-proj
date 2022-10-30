@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 import { useUpdateNoteMutation, useDeleteNoteMutation } from './notesApiSlice';
-import { ROLES } from '../../config/roles';
 
 export default function EditNoteForm({ users, note }) {
   const navigate = useNavigate();
@@ -32,7 +31,7 @@ export default function EditNoteForm({ users, note }) {
     }
   }, [isSuccess, isDelSuccess, navigate]);
 
-  // // handlers
+  // handlers
   const onTitleChange = ev => setTitle(ev.target.value);
   const onTextChange = ev => setText(ev.target.value);
   const onUserIdChange = ev => setUserId(ev.target.value);
@@ -88,7 +87,7 @@ export default function EditNoteForm({ users, note }) {
   const validTextClass = !text ? 'form__input--incomplete' : '';
 
   // if <left-side> is null / undefined, return '', else return <left-side>
-  const errContent = (error?.data?.message || delError?.data?.message) ?? '';
+  const errContent = (error?.data?.error || delError?.data?.error) ?? '';
 
   return (
     <>

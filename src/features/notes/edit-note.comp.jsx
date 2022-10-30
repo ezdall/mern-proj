@@ -14,5 +14,5 @@ export default function EditNote() {
 
   if (note && users?.length) return <EditNoteForm note={note} users={users} />;
 
-  return <p> /notes/:id. Loading...</p>;
+  return <p> /notes/:id. No Note or User</p>;
 }
