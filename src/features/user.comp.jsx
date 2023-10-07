@@ -13,7 +13,7 @@ export default function User({ userId }) {
   const navigate = useNavigate();
 
   if (user) {
-    const handleEdit = () => navigate(`/dash/users/${userId}`);
+    const handleEditClick = () => navigate(`/dash/users/${userId}`);
 
     // array to string w/ reformat
     const userRolesString = user.roles.toString().replaceAll(',', ', ');
@@ -28,7 +28,7 @@ export default function User({ userId }) {
           <button
             type="button"
             className="icon-button table__button"
-            onClick={handleEdit}
+            onClick={handleEditClick}
           >
             <FontAwesomeIcon icon={faPenToSquare} />
           </button>

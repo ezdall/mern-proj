@@ -11,8 +11,6 @@ export default function UsersList() {
     error
   } = useGetUsersQuery();
 
-  console.log(useGetUsersQuery());
-
   let content = null;
 
   if (isSuccess) {
@@ -47,11 +45,7 @@ export default function UsersList() {
     <>
       <h1>UsersList</h1>
       {isLoading && <p>Loading..</p>}
-      {isError && (
-        <p className={isError ? 'errmsg' : 'offscreen'}>
-          {error?.data?.message}
-        </p>
-      )}
+      {isError && <p className="errmsg">{error?.data?.message}</p>}
       {isSuccess && content}
     </>
   );
