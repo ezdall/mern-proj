@@ -1,15 +1,22 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import DashLayout from './components/dash-layout.comp';
+
 
 // comp
 import Layout from './components/layout.comp';
-import Login from './features/login.comp';
+import DashLayout from './components/dash-layout.comp';
 import Public from './components/public.comp';
 //
+import Login from './features/login.comp';
 import Welcome from './features/welcome.comp';
 import NoteList from './features/notes-list.comp';
 import UsersList from './features/users-list.comp';
+//
+import NewUserForm from './features/new-user-form.comp';
+import NewNote from './features/new-note.comp';
+import EditUser from './features/edit-user.comp';
+import EditNote from './features/edit-note.comp';
+
 
 export default function App() {
   return (
@@ -22,12 +29,14 @@ export default function App() {
           {/* /dash/notes/:noteId  */}
           <Route path="notes">
             <Route index element={<NoteList />} />
-            <Route path=":noteId" element={<div>:noteId</div>} />
+            <Route path=":id" element={<EditNote />} />
+            <Route path="new" element={<NewNote />} />
           </Route>
           {/* /dash/users/:userId  */}
           <Route path="users">
             <Route index element={<UsersList />} />
-            <Route path=":userId" element={<div>:userId</div>} />
+            <Route path=":id" element={<EditUser />} />
+            <Route path="new" element={<NewUserForm />} />
           </Route>
         </Route>
       </Route>
