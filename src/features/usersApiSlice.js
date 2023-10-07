@@ -10,21 +10,18 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       query() {
         return '/users';
       },
-
       validateStatus(response, result) {
         console.log('resp', response);
         console.log('resu', result);
 
         return response.status === 200 && !result.isError;
       },
-
       transformResponse(responseData) {
         const loadedUsers = responseData.map(user => {
           return { ...user, id: user._id };
         });
         return usersAdapter.setAll(initialState, loadedUsers);
       },
-
       providesTags(result, error, arg) {
         if (result?.ids) {
           return [
@@ -35,11 +32,55 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         return [{ type: 'User', id: 'LIST' }];
       },
       keepUnusedDataFor: 5 // 5sec, default is 60s
+    }),
+    // crud add
+    addNewUser: builder.mutation({
+      query(initialUserData) {
+        return {
+          url: '/users',
+          method: 'POST',
+          body: {
+            ...initialUserData
+          }
+        };
+      },
+      invalidatesTags: [{ type: 'User', id: 'LIST' }]
+    }),
+    // update
+    updateUser: builder.mutation({
+      query(initialUserData) {
+        return {
+          url: '/users',
+          method: 'PATCH',
+          body: { ...initialUserData }
+        };
+      },
+      invalidatesTags(result, error, arg) {
+        return [{ type: 'User', id: arg.id }];
+      }
+    }),
+    // delete
+    deleteUser: builder.mutation({
+      query({ id }) {
+        return {
+          url: '/users',
+          method: 'DELETE',
+          body: { id }
+        };
+      },
+      invalidatesTags(result, error, arg) {
+        return [{ type: 'User', id: arg.id }];
+      }
     })
   })
 });
 
-export const { useGetUsersQuery } = usersApiSlice;
+export const {
+  useGetUsersQuery,
+  useAddNewUserMutation,
+  useUpdateUserMutation,
+  useDeleteUserMutation
+} = usersApiSlice;
 
 // returns the query results object
 export const selectUserResult = usersApiSlice.endpoints.getUsers.select();

@@ -18,18 +18,15 @@ export const notesApiSlice = apiSlice.injectEndpoints({
       query() {
         return '/notes';
       },
-
       validateStatus(response, result) {
         return response.status === 200 && !result.isError;
       },
-
       transformResponse(responseData) {
         const loadNotes = responseData.map(note => {
           return { ...note, id: note._id };
         });
         return notesAdapter.setAll(initiateState, loadNotes);
       },
-
       providesTags(result, error, arg) {
         if (result?.ids) {
           return [
@@ -40,11 +37,55 @@ export const notesApiSlice = apiSlice.injectEndpoints({
         return [{ type: 'Note', id: 'LIST' }];
       },
       keepUnusedDataFor: 5 // 5sec, default is 60s
+    }),
+    // crud add
+    addNewNote: builder.mutation({
+      query(initialNoteData) {
+        return {
+          url: '/notes',
+          method: 'POST',
+          body: {
+            ...initialNoteData
+          }
+        };
+      },
+      invalidatesTags: [{ type: 'Note', id: 'LIST' }]
+    }),
+    // update
+    updateNote: builder.mutation({
+      query(initialNoteData) {
+        return {
+          url: '/notes',
+          method: 'PATCH',
+          body: { ...initialNoteData }
+        };
+      },
+      invalidatesTags(result, error, arg) {
+        return [{ type: 'Note', id: arg.id }];
+      }
+    }),
+    // delete
+    deleteNote: builder.mutation({
+      query({ id }) {
+        return {
+          url: `/notes/${id}`,
+          method: 'DELETE'
+          // body: { id }
+        };
+      },
+      invalidatesTags(result, error, arg) {
+        return [{ type: 'Note', id: arg.id }];
+      }
     })
   })
 });
 
-export const { useGetNotesQuery } = notesApiSlice;
+export const {
+  useGetNotesQuery,
+  useAddNewNoteMutation,
+  useUpdateNoteMutation,
+  useDeleteNoteMutation
+} = notesApiSlice;
 
 // returns the query results object
 export const selectNoteResult = notesApiSlice.endpoints.getNotes.select();
