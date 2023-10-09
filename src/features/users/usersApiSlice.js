@@ -1,5 +1,5 @@
 import { createSelector, createEntityAdapter } from '@reduxjs/toolkit';
-import { apiSlice } from '../api/apiSlice';
+import { apiSlice } from '../../api/apiSlice';
 
 const usersAdapter = createEntityAdapter({});
 const initialState = usersAdapter.getInitialState();
@@ -11,9 +11,6 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         return '/users';
       },
       validateStatus(response, result) {
-        console.log('resp', response);
-        console.log('resu', result);
-
         return response.status === 200 && !result.isError;
       },
       transformResponse(responseData) {
@@ -31,7 +28,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         }
         return [{ type: 'User', id: 'LIST' }];
       },
-      keepUnusedDataFor: 5 // 5sec, default is 60s
+      // keepUnusedDataFor: 5 // 5sec, default is 60s
     }),
     // crud add
     addNewUser: builder.mutation({

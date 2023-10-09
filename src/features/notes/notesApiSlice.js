@@ -1,5 +1,5 @@
 import { createSelector, createEntityAdapter } from '@reduxjs/toolkit';
-import { apiSlice } from '../api/apiSlice';
+import { apiSlice } from '../../api/apiSlice';
 
 const notesAdapter = createEntityAdapter({
   // sort-compare function
@@ -35,8 +35,7 @@ export const notesApiSlice = apiSlice.injectEndpoints({
           ];
         }
         return [{ type: 'Note', id: 'LIST' }];
-      },
-      keepUnusedDataFor: 5 // 5sec, default is 60s
+      }
     }),
     // crud add
     addNewNote: builder.mutation({
@@ -55,7 +54,7 @@ export const notesApiSlice = apiSlice.injectEndpoints({
     updateNote: builder.mutation({
       query(initialNoteData) {
         return {
-          url: '/notes',
+          url: `/notes/${initialNoteData.id}`,
           method: 'PATCH',
           body: { ...initialNoteData }
         };
