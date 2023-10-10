@@ -1,112 +1,121 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSave } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSave } from '@fortawesome/free-solid-svg-icons';
 
-import { useAddNewNoteMutation } from './notesApiSlice'
+import { useAddNewNoteMutation } from './notesApiSlice';
 
+export default function NewNoteForm({ users }) {
+  const [
+    addNewNote,
+    { isLoading, isSuccess, isError, error }
+  ] = useAddNewNoteMutation();
 
-export default function NewNoteForm({ users }){
+  const navigate = useNavigate();
 
-	  const [addNewNote, {
-        isLoading,
-        isSuccess,
-        isError,
-        error
-    }] = useAddNewNoteMutation()
+  // console.log('users', users[1]);
 
-    const navigate = useNavigate()
+  const [title, setTitle] = useState('');
+  const [text, setText] = useState('');
+  const [userId, setUserId] = useState(users[0].id); // dummy test
 
-    const [title, setTitle] = useState('');
-    const [text, setText] = useState('');
-    const [completed, setCompleted] = useState(false)
-    const [userId, setUserId] = useState('')
-
-    useEffect(() => {
-    	if(isSuccess){
-    		setTitle('');
-    		setText('');
-    		setUserId('');
-    		navigate('/dash/notes')
-    	}
-
-    }, [isSuccess, navigate])
-
-    const onTitleChanged = e => setTitle(e.target.value)
-    const onTextChanged = e => setText(e.target.value)
-    const onUserIdChanged = e => setUserId(e.target.value)
-
-    const canSave = [title, text, userId].every(Boolean);
-
-    const onSaveNoteClick = async (ev) => {
-    	ev.preventDefault()
-
-    	if(canSave){
-    		await addNewNote({
-    			title,
-    			text,
-    			// user: userId
-    		})
-    	}
+  useEffect(() => {
+    if (isSuccess) {
+      setTitle('');
+      setText('');
+      setUserId('');
+      navigate('/dash/notes');
     }
+  }, [isSuccess, navigate]);
 
-  const errClass = isError ? "errmsg" : "offscreen";
-  const validTitleClass = !title ? "form__input--incomplete" : '';
-  const validTextClass = !text ? "form__input--incomplete" : '';
+  const onTitleChange = e => setTitle(e.target.value);
+  const onTextChange = e => setText(e.target.value);
+  const onUserIdChange = e => setUserId(e.target.value);
 
-  const content = (<>
-  	<p className={errClass}>{error?.data?.message}</p>
+  const canSave = [title, text, userId].every(Boolean) && !isLoading;
 
-  	<form className="form" onSubmit={onSaveNoteClick}>
-  		<div className="form__title-row">
-  			<h2>New Note</h2>
-  			<div className="form__action-buttons">
-  				<button
-  					type="submit"
-  					className="icon-button"
-  					title="Save"
-  					disabled={!canSave}
-  				>
-						<FontAwesomeIcon icon={faSave} />  					
-  				</button>
-  			</div>
-  		</div>
-  		  <label className="form__label" htmlFor="title">
-                    Title:</label>
-          <input
-              className={`form__input ${validTitleClass}`}
-              id="title"
-              name="title"
-              type="text"
-              autoComplete="off"
-              value={title}
-              onChange={onTitleChanged}
-          />
+  const onSaveNoteClick = async ev => {
+    ev.preventDefault();
+    if (canSave) {
+      await addNewNote({
+        title,
+        text,
+        user: userId
+      });
+    }
+  };
 
-          <label className="form__label" htmlFor="text">
-              Text:</label>
-          <textarea
-              className={`form__input form__input--text ${validTextClass}`}
-              id="text"
-              name="text"
-              value={text}
-              onChange={onTextChanged}
-          />
+  const options = users.map(user => {
+    return (
+      <option key={user.id} value={user.id}>
+        {user.username}
+      </option>
+    );
+  });
 
-          <label className="form__label form__checkbox-container" htmlFor="username">
-              ASSIGNED TO:</label>
-{/*          <select
-              id="username"
-              name="username"
-              className="form__select"
-              value={userId}
-              onChange={onUserIdChanged}
-          >
-              {options}
-          </select> */}
-  		</form>
-  	</>)
+  const errClass = isError ? 'errmsg' : 'offscreen';
+  const validTitleClass = !title ? 'form__input--incomplete' : '';
+  const validTextClass = !text ? 'form__input--incomplete' : '';
 
-	return content;
+  return (
+    <>
+      <p className={errClass}>{error?.data?.message}</p>
+
+      <form className="form" onSubmit={onSaveNoteClick}>
+        <div className="form__title-row">
+          <h2>New Note</h2>
+          <div className="form__action-buttons">
+            <button
+              type="submit"
+              className="icon-button"
+              title="Save"
+              disabled={!canSave}
+            >
+              <FontAwesomeIcon icon={faSave} />
+            </button>
+          </div>
+        </div>
+        <label className="form__label" htmlFor="title">
+          Title:
+        </label>
+        <input
+          className={`form__input ${validTitleClass}`}
+          id="title"
+          name="title"
+          type="text"
+          autoComplete="off"
+          value={title}
+          onChange={onTitleChange}
+        />
+
+        <label className="form__label" htmlFor="text">
+          Text:
+        </label>
+        <textarea
+          className={`form__input form__input--text ${validTextClass}`}
+          id="text"
+          name="text"
+          value={text}
+          onChange={onTextChange}
+        />
+
+        <label
+          className="form__label form__checkbox-container"
+          htmlFor="username"
+        >
+          ASSIGNED TO:
+        </label>
+        <select
+          id="username"
+          name="username"
+          className="form__select"
+          value={userId}
+          onChange={onUserIdChange}
+        >
+          {options}
+        </select>
+      </form>
+    </>
+  );
 }

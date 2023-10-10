@@ -1,18 +1,14 @@
 import { useSelector } from 'react-redux';
-import { selectAllUsers } from '../users/usersApiSlice'
+import { selectAllUsers } from '../users/usersApiSlice';
 
-import NewNoteForm from './new-note-form.comp'
+import NewNoteForm from './new-note-form.comp';
 
 export default function NewNote() {
-  const users = useSelector(selectAllUsers)
+  const users = useSelector(selectAllUsers);
 
-  // const user = useSelector(state => selectUserById(state, id))
+  // console.log('users:', users);
 
-  console.log('users:', users)
+  if (users?.length) return <NewNoteForm users={users} />;
 
-  const content = users 
-    ? <NewNoteForm users={users} />
-    : <p>Loading...</p>
-
-  return content;
+  return <p> /notes/new. Loading...</p>;
 }

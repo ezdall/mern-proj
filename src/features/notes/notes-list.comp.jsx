@@ -15,16 +15,10 @@ export default function NoteList() {
     refetchOnMountOrArgChange: true
   });
 
-
-
-
-  console.log(useGetNotesQuery());
-
   let content = null;
 
   if (isSuccess) {
     const { ids } = notes;
-    // console.log(users);
 
     const tableContent = ids?.length
       ? ids.map(noteId => <Note key={noteId} noteId={noteId} />)
