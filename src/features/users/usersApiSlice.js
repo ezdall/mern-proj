@@ -27,8 +27,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
           ];
         }
         return [{ type: 'User', id: 'LIST' }];
-      },
-      // keepUnusedDataFor: 5 // 5sec, default is 60s
+      }
     }),
     // crud add
     addNewUser: builder.mutation({
@@ -47,7 +46,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
     updateUser: builder.mutation({
       query(initialUserData) {
         return {
-          url: '/users',
+          url: `/users/${initialUserData.id}`,
           method: 'PATCH',
           body: { ...initialUserData }
         };
@@ -60,7 +59,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
     deleteUser: builder.mutation({
       query({ id }) {
         return {
-          url: '/users',
+          url: `/users/${id}`,
           method: 'DELETE',
           body: { id }
         };

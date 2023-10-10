@@ -24,6 +24,10 @@
   --TABLE-COLOR: #000;
 }
 
+button {
+  cursor: pointer;
+}
+
 /* || UTILITY CLASSES */
 .errmsg {
   display: inline-block;
