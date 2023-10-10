@@ -8,7 +8,7 @@ import { useAddNewUserMutation } from './usersApiSlice';
 import { ROLES } from '../../config/roles';
 
 const USER_REGEX = /^[A-z]{3,20}$/;
-const PASS_REGEX = /^[A-z0-9!@#$%]{4,12}$/;
+const PASS_REGEX = /^[A-z0-9!@#$%]{6,12}$/;
 
 export default function NewUserForm() {
   const [
@@ -74,7 +74,9 @@ export default function NewUserForm() {
   const validPassClass = !validPassword ? 'form__input--incomplete' : '';
   const validRolesClass = !roles.length ? 'form__input--incomplete' : '';
 
-  const content = (
+  if (isLoading) return <p>/users/new. Loading...</p>;
+
+  return (
     <>
       <p className={errClass}>{error?.data?.message}</p>
 
@@ -105,7 +107,7 @@ export default function NewUserForm() {
           onChange={onUsernameChange}
         />
         <label htmlFor="password">
-          Password: <span className="nowrap">[4-12 chars incl. !@#$%]</span>
+          Password: <span className="nowrap">[6-12 chars incl. !@#$%]</span>
         </label>
         <input
           className={`form__input ${validPassClass}`}
@@ -132,6 +134,4 @@ export default function NewUserForm() {
       </form>
     </>
   );
-
-  return content;
 }

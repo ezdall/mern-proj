@@ -37,5 +37,5 @@ export default function User({ userId }) {
     );
   }
 
-  return null;
+  return <p>/users. Loading...</p>;
 }
