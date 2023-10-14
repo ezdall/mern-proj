@@ -12,8 +12,6 @@ const PASS_REGEX = /^[A-z0-9!@#$%]{6,12}$/;
 export default function EditUserForm({ user }) {
   const navigate = useNavigate();
 
-  // console.log('user', user);
-
   const [
     updateUser,
     { isLoading, isSuccess, isError, error }
@@ -110,7 +108,7 @@ export default function EditUserForm({ user }) {
   const validRolesClass = !roles.length ? 'form__input--incomplete' : '';
 
   // if <left-side> is null / undefined, return '', else return <left-side>
-  const errContent = (error?.data?.message || delError?.data?.message) ?? '';
+  const errContent = (error?.data?.error || delError?.data?.error) ?? '';
 
   if (isLoading) {
     return <p>/users/:id. Loading....</p>;

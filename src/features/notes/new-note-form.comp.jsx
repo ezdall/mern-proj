@@ -7,18 +7,16 @@ import { faSave } from '@fortawesome/free-solid-svg-icons';
 import { useAddNewNoteMutation } from './notesApiSlice';
 
 export default function NewNoteForm({ users }) {
+  const navigate = useNavigate();
+
   const [
     addNewNote,
     { isLoading, isSuccess, isError, error }
   ] = useAddNewNoteMutation();
 
-  const navigate = useNavigate();
-
-  // console.log('users', users[1]);
-
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
-  const [userId, setUserId] = useState(users[0].id); // dummy test
+  const [userId, setUserId] = useState(users[0].id); // any
 
   useEffect(() => {
     if (isSuccess) {
@@ -60,7 +58,7 @@ export default function NewNoteForm({ users }) {
 
   return (
     <>
-      <p className={errClass}>{error?.data?.message}</p>
+      <p className={errClass}>{error?.data?.error}</p>
 
       <form className="form" onSubmit={onSaveNoteClick}>
         <div className="form__title-row">

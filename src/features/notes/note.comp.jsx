@@ -7,7 +7,7 @@ import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { selectNoteById } from './notesApiSlice';
 
 export default function Note({ noteId }) {
-  // use noteId to find note
+  // use noteId (not params) to find note
 
   const note = useSelector(state => selectNoteById(state, noteId));
 

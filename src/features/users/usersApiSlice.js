@@ -31,12 +31,12 @@ export const usersApiSlice = apiSlice.injectEndpoints({
     }),
     // crud add
     addNewUser: builder.mutation({
-      query(initialUserData) {
+      query(initialUser) {
         return {
           url: '/users',
           method: 'POST',
           body: {
-            ...initialUserData
+            ...initialUser
           }
         };
       },
@@ -44,11 +44,11 @@ export const usersApiSlice = apiSlice.injectEndpoints({
     }),
     // update
     updateUser: builder.mutation({
-      query(initialUserData) {
+      query(initialUser) {
         return {
-          url: `/users/${initialUserData.id}`,
+          url: '/users',
           method: 'PATCH',
-          body: { ...initialUserData }
+          body: { ...initialUser }
         };
       },
       invalidatesTags(result, error, arg) {
@@ -59,7 +59,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
     deleteUser: builder.mutation({
       query({ id }) {
         return {
-          url: `/users/${id}`,
+          url: '/users',
           method: 'DELETE',
           body: { id }
         };

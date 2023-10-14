@@ -78,7 +78,7 @@ export default function NewUserForm() {
 
   return (
     <>
-      <p className={errClass}>{error?.data?.message}</p>
+      <p className={errClass}>{error?.data?.error}</p>
 
       <form className="form" onSubmit={onSaveUserClick}>
         <div className="form__title-row">

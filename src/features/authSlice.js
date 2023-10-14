@@ -6,7 +6,6 @@ const authSlice = createSlice({
   reducers: {
     setCredentials(state, action) {
       const { accessToken } = action.payload;
-
       // eslint-disable-next-line
       // state.token = accessToken;
       return { ...state, token: accessToken };
