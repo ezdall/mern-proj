@@ -3,17 +3,18 @@ import { createSlice } from '@reduxjs/toolkit';
 const authSlice = createSlice({
   name: 'auth',
   initialState: { token: null },
-  reducer: {
+  reducers: {
     setCredentials(state, action) {
       const { accessToken } = action.payload;
 
       // eslint-disable-next-line
-      state.token = accessToken;
-      // return { ...state, token: accessToken };
+      // state.token = accessToken;
+      return { ...state, token: accessToken };
     },
     logOut(state, action) {
-      // state.token = null
-      return { ...state, toke: null };
+      // eslint-disable-next-line
+      // state.token = null;
+      return { ...state, token: null };
     }
   }
 });
