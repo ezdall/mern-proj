@@ -3,6 +3,7 @@ import { useGetNotesQuery } from './notesApiSlice';
 import Note from './note.comp';
 
 export default function NoteList() {
+  // get All Notes
   const {
     data: notes,
     isLoading,
@@ -15,50 +16,45 @@ export default function NoteList() {
     refetchOnMountOrArgChange: true
   });
 
-  let content = null;
+  if (isLoading) return <p>Loading...</p>;
+
+  if (isError) return <p className="errmsg">{error.data?.error}</p>;
 
   if (isSuccess) {
     const { ids } = notes;
 
-    const tableContent = ids?.length
-      ? ids.map(noteId => <Note key={noteId} noteId={noteId} />)
-      : null;
+    const tableContent =
+      ids?.length && ids.map(noteId => <Note key={noteId} noteId={noteId} />);
 
-    content = (
-      <table className="table table--notes">
-        <thead className="table__thead">
-          <tr>
-            <th scope="col" className="table__th note__status">
-              Username
-            </th>
-            <th scope="col" className="table__th note__created">
-              Created
-            </th>
-            <th scope="col" className="table__th note__updated">
-              Updated
-            </th>
-            <th scope="col" className="table__th note__title">
-              Title
-            </th>
-            <th scope="col" className="table__th note__username">
-              Owner
-            </th>
-            <th scope="col" className="table__th note__edit">
-              Edit
-            </th>
-          </tr>
-        </thead>
-        <tbody>{tableContent}</tbody>
-      </table>
+    return (
+      <>
+        <h1>Notes List</h1>
+        <table className="table table--notes">
+          <thead className="table__thead">
+            <tr>
+              <th scope="col" className="table__th note__status">
+                Username
+              </th>
+              <th scope="col" className="table__th note__created">
+                Created
+              </th>
+              <th scope="col" className="table__th note__updated">
+                Updated
+              </th>
+              <th scope="col" className="table__th note__title">
+                Title
+              </th>
+              <th scope="col" className="table__th note__username">
+                Owner
+              </th>
+              <th scope="col" className="table__th note__edit">
+                Edit
+              </th>
+            </tr>
+          </thead>
+          <tbody>{tableContent}</tbody>
+        </table>
+      </>
     );
   }
-
-  return (
-    <>
-      <h1>Notes List</h1>
-      {isLoading && <p>Loading...</p>}
-      {isError && <p className="errmsg">{error.data?.message}</p>}
-      {isSuccess && content}
-    </>
-  );
 }
