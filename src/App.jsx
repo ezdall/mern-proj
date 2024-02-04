@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 
 // comp
@@ -19,6 +20,10 @@ import NewNote from './features/notes/new-note.comp';
 import EditNote from './features/notes/edit-note.comp';
 
 export default function App() {
+  const store = useSelector(state => state);
+
+  console.log({ store });
+
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
