@@ -14,7 +14,7 @@ export default function Prefetch() {
     const users = store.dispatch(usersApiSlice.endpoints.getUsers.initiate());
 
     return () => {
-      console.log('UNsubscribing');
+      console.log('unsub');
       notes.unsubscribe();
       users.unsubscribe();
     };

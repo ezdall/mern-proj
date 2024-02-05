@@ -7,13 +7,13 @@ const authSlice = createSlice({
     setCredentials(state, action) {
       const { accessToken } = action.payload;
       // eslint-disable-next-line
-      // state.token = accessToken;
-      return { ...state, token: accessToken };
+      state.token = accessToken;
+      // return { ...state, token: accessToken };
     },
     logOut(state, action) {
       // eslint-disable-next-line
-      // state.token = null;
-      return { ...state, token: null };
+      state.token = null;
+      // return { ...state, token: null };
     }
   }
 });
