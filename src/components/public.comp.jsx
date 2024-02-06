@@ -5,25 +5,26 @@ export default function Public() {
     <section className="public">
       <header>
         <h1>
-          Welcome to <span className="nowrap">Dan D. Repairs!</span>
+          Welcome to <span className="nowrap">TechFix Solutions!</span>
         </h1>
       </header>
       <main className="public__main">
         <p>
-          Located in Beautiful Downtown Foo City, Dan D. Repairs provides a
-          trained staff ready to meet your tech repair needs.
+          Nestled in the vibrant heart of Tech City, TechFix Solutions offers a
+          dedicated team poised to tackle all your technology repair
+          requirements.
         </p>
         <address className="public__addr">
-          Dan D. Repairs
+          TechFix Solutions
           <br />
-          555 Foo Drive
+          789 Market Avenue
           <br />
-          Foo City, CA 12345
+          City Central, CA 54321
           <br />
-          <a href="tel:+15555555555">(555) 555-5555</a>
+          <a href="tel:+15555555555">(555) 987-6543</a>
         </address>
         <br />
-        <p>Owner: Dan Davidson</p>
+        <p>Owner: Jane Doe</p>
       </main>
       <footer>
         <Link to="/login">Employee Login</Link>
