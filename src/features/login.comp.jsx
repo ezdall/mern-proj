@@ -5,6 +5,8 @@ import { useDispatch } from 'react-redux';
 import { setCredentials } from './authSlice';
 import { useLoginMutation } from './authApiSlice';
 
+import usePersist from '../hooks/usePersist';
+
 export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -15,6 +17,7 @@ export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errMsg, setErrMsg] = useState('');
+  const [persist, setPersist] = usePersist();
 
   const [login, { isLoading }] = useLoginMutation();
 
@@ -28,6 +31,7 @@ export default function Login() {
 
   const onUserInput = e => setUsername(e.target.value);
   const onPassInput = e => setPassword(e.target.value);
+  const handleToggle = () => setPersist(prev => !prev);
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -95,6 +99,17 @@ export default function Login() {
           <button type="submit" className="form__submit-button">
             Sign In
           </button>
+          <label htmlFor="persist" className="form__persist">
+            <input
+              type="checkbox"
+              name="persist"
+              id="persist"
+              className="form__checkbox"
+              checked={persist}
+              onChange={handleToggle}
+            />
+            Remember Login
+          </label>
         </form>
       </main>
       <footer>
