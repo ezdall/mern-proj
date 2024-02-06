@@ -9,7 +9,7 @@ export default function UsersList() {
     isSuccess,
     isError,
     error
-  } = useGetUsersQuery(undefined, {
+  } = useGetUsersQuery('usersList', {
     pollingInterval: 60 * 1000,
     refetchOnFocus: true,
     refetchOnMountOrArgChange: true

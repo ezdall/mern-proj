@@ -10,15 +10,15 @@ export default function NoteList() {
     isSuccess,
     isError,
     error
-  } = useGetNotesQuery(undefined, {
-    pollingInterval: 15 * 1000,
+  } = useGetNotesQuery('notesList', {
+    pollingInterval: 15 * 1000, // re-fetch data after 15s
     refetchOnFocus: true,
     refetchOnMountOrArgChange: true
   });
 
   if (isLoading) return <p>Loading...</p>;
 
-  if (isError) return <p className="errmsg">{error.data?.error}</p>;
+  if (isError) return <p className="errmsg">{error.data?.message}</p>;
 
   if (isSuccess) {
     const { ids } = notes;
