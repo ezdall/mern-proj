@@ -1,59 +1,39 @@
 {
-  "name": "mern-proj",
-  "version": "0.1.0",
-  "private": true,
+  "name": "techfix",
+  "private": false,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "6.2.0",
-    "@fortawesome/free-solid-svg-icons": "6.2.0",
+    "@fortawesome/fontawesome-svg-core": "6.5.2",
+    "@fortawesome/free-solid-svg-icons": "6.5.2",
     "@fortawesome/react-fontawesome": "0.2.0",
-    "@reduxjs/toolkit": "1.8.5",
-    "@testing-library/jest-dom": "4.2.4",
-    "@testing-library/react": "9.3.2",
-    "@testing-library/user-event": "7.1.2",
-    "axios": "0.21.4",
-    "gh-pages": "2.2.0",
+    "@reduxjs/toolkit": "1.9.7",
+    "axios": "1.6.8",
     "jwt-decode": "3.1.2",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "react-redux": "7.2.8",
-    "react-router-dom": "6.3.0",
-    "react-scripts": "4.0.3",
+    "query-string": "4.3.4",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-redux": "7.2.9",
+    "react-router-dom": "6.22.3",
     "redux-logger": "3.0.6"
   },
   "devDependencies": {
-    "eslint": "7.32.0",
-    "eslint-config-airbnb": "18.2.1",
-    "eslint-config-prettier": "6.7.0",
-    "eslint-plugin-import": "2.22.1",
-    "eslint-plugin-jsx-a11y": "6.4.1",
-    "eslint-plugin-prettier": "3.1.1",
-    "eslint-plugin-react": "7.21.5",
-    "eslint-plugin-react-hooks": "1.7.0",
-    "prettier": "1.19.1",
-    "sass": "1.23.7",
-    "typescript": "3.7.3"
-  },
-  "scripts": {
-    "start": "set port=5000 && react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "predeploy": "yarn run build",
-    "deploy": "gh-pages -d build"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "@types/react": "18.2.15",
+    "@types/react-dom": "18.2.7",
+    "@vitejs/plugin-react": "4.0.3",
+    "eslint": "8.45.0",
+    "eslint-config-prettier": "8.5.0",
+    "eslint-plugin-prettier": "4.2.1",
+    "eslint-plugin-react": "7.32.2",
+    "eslint-plugin-react-hooks": "4.6.0",
+    "eslint-plugin-react-refresh": "0.4.3",
+    "prettier": "2.5.1",
+    "vite": "4.5.3"
   }
 }

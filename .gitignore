@@ -4,12 +4,26 @@
 /node_modules
 /.pnp
 .pnp.js
+dist
+dist-ssr
+*.local
 
 # testing
 /coverage
 
 # production
 /build
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 
 # misc
 .DS_Store
@@ -18,9 +32,13 @@
 .env.test.local
 .env.production.local
 
+logs
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
 # my
 src/bootstrap.min.css
@@ -30,5 +48,3 @@ src/bootstrap.min.css
 .prettierignore
 .coverage
 note.txt
-# package-lock.json
-# yarn.lock

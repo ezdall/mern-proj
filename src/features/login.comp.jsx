@@ -12,7 +12,7 @@ export default function Login() {
   const navigate = useNavigate();
 
   const userRef = useRef();
-  const errRef = useRef();
+  const errRef = useRef(null);
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');

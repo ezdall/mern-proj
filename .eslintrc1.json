@@ -1,0 +1,49 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true,
+    "commonjs": true
+  },
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2020, // in 2018, no optional-chaining, coalescene?
+    "sourceType": "module"
+  },
+  "extends": ["airbnb", "prettier", "prettier/react"],
+  "plugins": ["react", "react-hooks", "prettier"],
+  "rules": {
+    "react/jsx-uses-react": "error", // to be tested
+    "prettier/prettier": [
+      "warn",
+      {
+        "singleQuote": true,
+        "arrowParens": "avoid"
+      }
+    ],
+    "no-console": "off",
+    "no-alert": "off",
+    "no-unused-vars": "warn",
+    "class-methods-use-this": "warn",
+    "camelcase": "warn",
+    "no-underscore-dangle": "off", // warn
+    // react, import
+    "import/prefer-default-export": "off", // warn
+    "react/prop-types": "off",
+    "react/react-in-jsx-scope": "off", // safe-to-off in React-17
+    "react/destructuring-assignment": "warn", // test
+    "react/jsx-one-expression-per-line": "off",
+    "react/jsx-filename-extension": "error", // must be .jsx?
+
+    // "react/self-closing-comp": "warn",
+    // react hooks
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    // jsx
+    "jsx-a11y/anchor-is-valid": "warn", // off, for <a href='#'>click</a>
+    "jsx-a11y/label-has-associated-control": "off", // or warn
+    "jsx-a11y/click-events-have-key-events": "warn"
+  }
+}
