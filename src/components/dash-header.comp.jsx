@@ -22,16 +22,14 @@ export default function DashHeader() {
 
   const { isManager, isAdmin } = useAuth();
 
-  const [
-    sendLogout,
-    { isLoading, isSuccess, isError, error }
-  ] = useSendLogoutMutation();
+  const [sendLogout, { isLoading, isSuccess, isError, error }] =
+    useSendLogoutMutation();
 
   useEffect(() => {
     if (isSuccess) navigate('/');
   }, [isSuccess, navigate]);
 
-  const onLogoutClick = () => sendLogout();
+  // const onLogoutClick = () => sendLogout();
 
   const onNewNoteClick = () => navigate('/dash/notes/new');
   const onNewUserClick = () => navigate('./users/new');

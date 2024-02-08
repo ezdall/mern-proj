@@ -47,7 +47,6 @@ export const authApiSlice = apiSlice.injectEndpoints({
 
           const { accessToken } = data;
 
-          dispatch(logOut());
           dispatch(setCredentials({ accessToken }));
         } catch (err) {
           console.log(err);
@@ -57,8 +56,5 @@ export const authApiSlice = apiSlice.injectEndpoints({
   })
 });
 
-export const {
-  useLoginMutation,
-  useSendLogoutMutation,
-  useRefreshMutation
-} = authApiSlice;
+export const { useLoginMutation, useSendLogoutMutation, useRefreshMutation } =
+  authApiSlice;

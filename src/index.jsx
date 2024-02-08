@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { store } from './api/store';
 // comp
 import App from './App';
-import ErrorBoundary from './components/error-boundary.comp';
+// import ErrorBoundary from './components/error-boundary.comp';
 // style
 import './index.css';
 

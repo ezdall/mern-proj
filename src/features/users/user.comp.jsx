@@ -37,5 +37,6 @@ export default function User({ userId }) {
     );
   }
 
-  return <p>/users. Loading...No user yet...</p>;
+  return null; // the parent-comp is a <table />
+  // return <p>/users. Loading...No user yet...</p>;
 }

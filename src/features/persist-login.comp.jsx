@@ -13,10 +13,8 @@ export default function PersistLogin() {
 
   const [trueSuccess, setTrueSuccess] = useState(false);
 
-  const [
-    refresh,
-    { isUninitialized, isLoading, isSuccess, isError, error }
-  ] = useRefreshMutation();
+  const [refresh, { isUninitialized, isLoading, isSuccess, isError, error }] =
+    useRefreshMutation();
 
   // console.log({
   //   isSuccess,
@@ -52,7 +50,7 @@ export default function PersistLogin() {
 
   if (!persist) {
     // persist: no
-    console.log('no persist');
+    // console.log('no persist');
     content = <Outlet />;
   } else if (isLoading) {
     // persist: yes, token: no
@@ -64,7 +62,7 @@ export default function PersistLogin() {
 
     content = (
       <p className="errmsg">
-        {error.data?.error}
+        {`${error?.data?.error || error?.data?.message} - `}
         <Link to="/login">Please login again</Link>
       </p>
     );

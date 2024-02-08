@@ -15,19 +15,19 @@ export default function Welcome() {
       <p>{today}</p>
       <h1>Welcome! {username}</h1>
       <p>
-        <Link to="/dash/notes">View techNotes</Link>
+        <Link to="/dash/notes">[ View ] - techNotes</Link>
       </p>
       <p>
-        <Link to="/dash/notes/new">Add New techNotes</Link>
+        <Link to="/dash/notes/new">[ Add ] - New techNotes</Link>
       </p>
       {(isManager || isAdmin) && (
         <p>
-          <Link to="/dash/users">View User Settings</Link>
+          <Link to="/dash/users">[ View ] - User Settings</Link>
         </p>
       )}
       {(isManager || isAdmin) && (
         <p>
-          <Link to="/dash/users/new">Add New User</Link>
+          <Link to="/dash/users/new">[ Add ] - New User</Link>
         </p>
       )}
     </section>

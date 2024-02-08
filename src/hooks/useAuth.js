@@ -12,7 +12,7 @@ export default function useAuth() {
   if (token) {
     const decode = jwtDecode(token);
 
-    console.log({ decode });
+    // console.log({ decode });
 
     const { username, roles } = decode;
 
