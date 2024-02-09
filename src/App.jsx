@@ -11,6 +11,7 @@ import Login from './features/login.comp';
 import Welcome from './features/welcome.comp';
 import Prefetch from './features/prefetch.comp';
 import PersistLogin from './features/persist-login.comp';
+import RequireAuth from './features/require-auth.comp';
 // users
 import UsersList from './features/users/users-list.comp';
 import NewUserForm from './features/users/new-user-form.comp';
@@ -20,10 +21,10 @@ import NoteList from './features/notes/notes-list.comp';
 import NewNote from './features/notes/new-note.comp';
 import EditNote from './features/notes/edit-note.comp';
 
-export default function App() {
-  const store = useSelector(state => state);
+import { ROLES } from './config/roles';
 
-  // console.log({ store });
+export default function App() {
+  const { Manager, Admin, Employee } = ROLES;
 
   return (
     <Routes>
@@ -31,26 +32,35 @@ export default function App() {
         <Route index element={<Public />} />
         <Route path="login" element={<Login />} />
 
+        {/* Protecte Routes */}
         <Route element={<PersistLogin />}>
-          <Route element={<Prefetch />}>
-            <Route path="dash" element={<DashLayout />}>
-              <Route index element={<Welcome />} />
-              {/* /dash/notes/:noteId  */}
-              <Route path="notes">
-                <Route index element={<NoteList />} />
-                <Route path="new" element={<NewNote />} />
-                <Route path=":id" element={<EditNote />} />
-              </Route>
-              {/* /dash/users/:userId  */}
-              <Route path="users">
-                <Route index element={<UsersList />} />
-                <Route path="new" element={<NewUserForm />} />
-                <Route path=":id" element={<EditUser />} />
+          <Route
+            element={<RequireAuth allowedRoles={[Manager, Admin, Employee]} />}
+          >
+            <Route element={<Prefetch />}>
+              <Route path="dash" element={<DashLayout />}>
+                <Route index element={<Welcome />} />
+                {/* /dash/notes/:noteId  */}
+                <Route path="notes">
+                  <Route index element={<NoteList />} />
+                  <Route path="new" element={<NewNote />} />
+                  <Route path=":id" element={<EditNote />} />
+                </Route>
+                {/* /dash/users/:userId  */}
+                <Route
+                  element={<RequireAuth allowedRoles={[Manager, Admin]} />}
+                >
+                  <Route path="users">
+                    <Route index element={<UsersList />} />
+                    <Route path="new" element={<NewUserForm />} />
+                    <Route path=":id" element={<EditUser />} />
+                  </Route>
+                </Route>
               </Route>
             </Route>
           </Route>
         </Route>
-        {/* Persist End */}
+        {/* Protedct-Route End */}
       </Route>
     </Routes>
   );
