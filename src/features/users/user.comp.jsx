@@ -1,16 +1,22 @@
-import { useSelector } from 'react-redux';
+// import { memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 
-import { selectUserById } from './usersApiSlice';
+// import { selectUserById } from './usersApiSlice';
+import { useGetUsersQuery } from './usersApiSlice';
 
-export default function User({ userId }) {
-  // use userId to find user
-  const user = useSelector(state => selectUserById(state, userId));
-
+function User({ userId }) {
   const navigate = useNavigate();
+
+  // use userId to find user
+  // const user = useSelector(state => selectUserById(state, userId));
+  const { user } = useGetUsersQuery('usersList', {
+    selectFromResult: ({ data }) => ({
+      user: data?.entities[userId]
+    })
+  });
 
   if (user) {
     const handleEditClick = () => navigate(`/dash/users/${userId}`);
@@ -37,6 +43,14 @@ export default function User({ userId }) {
     );
   }
 
-  return null; // the parent-comp is a <table />
-  // return <p>/users. Loading...No user yet...</p>;
+  // return null; // the parent-comp is a <table />
+  return (
+    <tr className="table__row user">
+      <td className="table__cell"> no user </td>
+    </tr>
+  );
 }
+
+// const MemoUser = memo(User);
+
+export default User;

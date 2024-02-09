@@ -7,17 +7,15 @@ import { usersApiSlice } from './users/usersApiSlice';
 
 export default function Prefetch() {
   useEffect(() => {
-    console.log('subscribing');
+    console.log('prefetch');
 
-    // fill-up users when in /notes route
-    const notes = store.dispatch(notesApiSlice.endpoints.getNotes.initiate());
-    const users = store.dispatch(usersApiSlice.endpoints.getUsers.initiate());
+    store.dispatch(
+      notesApiSlice.util.prefetch('getNotes', 'notesList', { force: true })
+    );
 
-    return () => {
-      console.log('unsub');
-      notes.unsubscribe();
-      users.unsubscribe();
-    };
+    store.dispatch(
+      usersApiSlice.util.prefetch('getUsers', 'usersList', { force: true })
+    );
   }, []);
 
   return <Outlet />;

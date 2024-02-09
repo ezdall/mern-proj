@@ -1,17 +1,24 @@
-import { useSelector } from 'react-redux';
+// import { memo } from 'react';
+// import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 
-import { selectNoteById } from './notesApiSlice';
+// import { selectNoteById } from './notesApiSlice';
 
-export default function Note({ noteId }) {
-  // use noteId (not params) to find note
+import { useGetNotesQuery } from './notesApiSlice';
 
-  const note = useSelector(state => selectNoteById(state, noteId));
-
+function Note({ noteId }) {
   const navigate = useNavigate();
+
+  // use noteId (not params) to find note
+  // const note = useSelector(state => selectNoteById(state, noteId));
+  const { note } = useGetNotesQuery('notesList', {
+    selectFromResult: ({ data }) => ({
+      note: data?.entities[noteId]
+    })
+  });
 
   if (note) {
     // array to string w/ reformat
@@ -54,5 +61,15 @@ export default function Note({ noteId }) {
     );
   }
 
-  return <p>/notes. Loading...</p>;
+  //  if no note
+  // must be "return null"
+  return (
+    <tr className="table__row">
+      <td className="table__cell note__status"> no note </td>
+    </tr>
+  );
 }
+
+// const MemoNote = memo(Note);
+
+export default Note;
