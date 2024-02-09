@@ -1,6 +1,7 @@
 import { useGetUsersQuery } from './usersApiSlice';
+// import HashLoader from 'react-spinners/HashLoader';
 
-import User from './user.comp';
+import MemoUser from './user.comp';
 
 export default function UsersList() {
   const {
@@ -17,13 +18,15 @@ export default function UsersList() {
 
   if (isLoading) return <p>Loading...</p>;
 
-  if (isError) return <p className="errmsg">{error.data?.error}</p>;
+  if (isError)
+    return <p className="errmsg">{error.data?.error || error.data?.message}</p>;
 
   if (isSuccess) {
     const { ids } = users;
 
     const tableContent =
-      ids?.length && ids.map(userId => <User key={userId} userId={userId} />);
+      ids?.length &&
+      ids.map(userId => <MemoUser key={userId} userId={userId} />);
 
     return (
       <>

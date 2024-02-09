@@ -1,6 +1,6 @@
 import { useGetNotesQuery } from './notesApiSlice';
 
-import Note from './note.comp';
+import MemoNote from './note.comp';
 import useAuth from '../../hooks/useAuth';
 
 export default function NoteList() {
@@ -46,7 +46,7 @@ export default function NoteList() {
 
     const tableContent =
       ids?.length &&
-      filteredIds.map(noteId => <Note key={noteId} noteId={noteId} />);
+      filteredIds.map(noteId => <MemoNote key={noteId} noteId={noteId} />);
 
     console.log(tableContent);
 

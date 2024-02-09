@@ -1,12 +1,10 @@
-// import { memo } from 'react';
-// import { useSelector } from 'react-redux';
+import { memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 
 // import { selectNoteById } from './notesApiSlice';
-
 import { useGetNotesQuery } from './notesApiSlice';
 
 function Note({ noteId }) {
@@ -70,6 +68,6 @@ function Note({ noteId }) {
   );
 }
 
-// const MemoNote = memo(Note);
+const MemoNote = memo(Note);
 
-export default Note;
+export default MemoNote;

@@ -13,7 +13,7 @@ export const store = configureStore({
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware().concat(apiSlice.middleware),
-  devTools: true
+  devTools: true // true to use redux devtools
 });
 
 setupListeners(store.dispatch);

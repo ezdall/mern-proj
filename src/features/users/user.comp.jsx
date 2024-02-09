@@ -1,4 +1,4 @@
-// import { memo } from 'react';
+import { memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -51,6 +51,6 @@ function User({ userId }) {
   );
 }
 
-// const MemoUser = memo(User);
+const MemoUser = memo(User);
 
-export default User;
+export default MemoUser;
