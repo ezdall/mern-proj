@@ -1,5 +1,5 @@
 import { useGetUsersQuery } from './usersApiSlice';
-// import HashLoader from 'react-spinners/HashLoader';
+import HashLoader from 'react-spinners/HashLoader';
 
 import MemoUser from './user.comp';
 
@@ -16,7 +16,7 @@ export default function UsersList() {
     refetchOnMountOrArgChange: true
   });
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <HashLoader color="#fff" />;
 
   if (isError)
     return <p className="errmsg">{error.data?.error || error.data?.message}</p>;

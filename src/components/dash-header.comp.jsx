@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import HashLoader from 'react-spinners/HashLoader';
 import {
   faRightFromBracket,
   faFilePen,
@@ -12,9 +13,9 @@ import {
 import useAuth from '../hooks/useAuth';
 import { useSendLogoutMutation } from '../features/authApiSlice';
 
-const DASH_REGEX = /^\/dash(\/)?$/;
-const NOTES_REGEX = /^\/dash\/notes(\/)?$/;
-const USERS_REGEX = /^\/dash\/users(\/)?$/;
+const DASH_REGEX = /^\/dash(\/)?$/; // '/dash'
+const NOTES_REGEX = /^\/dash\/notes(\/)?$/; // '/dash/notes'
+const USERS_REGEX = /^\/dash\/users(\/)?$/; // '/dash/users'
 
 export default function DashHeader() {
   const navigate = useNavigate();
@@ -26,18 +27,20 @@ export default function DashHeader() {
     useSendLogoutMutation();
 
   useEffect(() => {
+    // logout success
     if (isSuccess) navigate('/');
   }, [isSuccess, navigate]);
-
-  // const onLogoutClick = () => sendLogout();
 
   const onNewNoteClick = () => navigate('/dash/notes/new');
   const onNewUserClick = () => navigate('./users/new');
   const onNotesClick = () => navigate('./notes');
   const onUsersClick = () => navigate('./users');
 
-  let dashClass = null;
+  // const onLogoutClick = () => sendLogout();
 
+  // console.log({ pathname });
+
+  let dashClass = null;
   if (
     !DASH_REGEX.test(pathname) &&
     !NOTES_REGEX.test(pathname) &&
@@ -47,7 +50,6 @@ export default function DashHeader() {
   }
 
   let newNoteButton = null;
-
   if (NOTES_REGEX.test(pathname)) {
     newNoteButton = (
       <button
@@ -118,10 +120,9 @@ export default function DashHeader() {
 
   const errClass = isError ? 'errmsg' : 'offscreen';
 
-  let buttonContent;
+  let buttonContent = null;
   if (isLoading) {
-    // buttonContent = <PulseLoader color='#FFF' />;
-    <p>Loading...</p>;
+    buttonContent = <HashLoader color="#FFF" />;
   } else {
     buttonContent = (
       <>
@@ -134,31 +135,18 @@ export default function DashHeader() {
     );
   }
 
-  // if (isLoading) return <p>Logging Out...</p>;
-
   if (isError) return <p>Error: {error.data?.message}</p>;
 
   return (
     <>
-      <p className={errClass}>{error?.data?.message}</p>
+      <p className={errClass}>{error?.data?.message || error?.data?.error}</p>
 
       <header className="dash-header">
         <div className={`dash-header__container ${dashClass}`}>
           <Link to="/dash">
             <h1 className="dash-header__title">techNotes</h1>
           </Link>
-          <nav className="dash-header__nav">
-            {buttonContent}
-
-            {/* <button
-            type="submit"
-            className="icon-button"
-            title="logout"
-            onClick={onLogoutClick}
-          >
-            <FontAwesomeIcon icon={faRightFromBracket} />
-          </button> */}
-          </nav>
+          <nav className="dash-header__nav">{buttonContent}</nav>
         </div>
       </header>
     </>

@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import HashLoader from 'react-spinners/HashLoader';
 
 import { useDispatch } from 'react-redux';
 import { setCredentials } from './authSlice';
@@ -12,7 +13,7 @@ export default function Login() {
   const navigate = useNavigate();
 
   const userRef = useRef();
-  const errRef = useRef(null);
+  const errRef = useRef();
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -55,13 +56,13 @@ export default function Login() {
         setErrMsg('Unauthorized');
       }
       setErrMsg(err?.data?.error);
-      errRef.current.focus();
+      errRef?.current.focus();
     }
   };
 
   const errClass = errMsg ? 'errmsg' : 'offscreen';
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <HashLoader color="#fff" />;
 
   return (
     <section>

@@ -3,6 +3,7 @@ import { apiSlice } from '../../api/apiSlice';
 
 const notesAdapter = createEntityAdapter({
   // sort-compare function
+  // completed note are below?
   sortComparer(a, b) {
     if (a.completed === b.completed) return 0;
 
@@ -16,10 +17,13 @@ export const notesApiSlice = apiSlice.injectEndpoints({
   endpoints: builder => ({
     getNotes: builder.query({
       query() {
-        return '/notes';
-      },
-      validateStatus(response, result) {
-        return response.status === 200 && !result.isError;
+        return {
+          url: '/notes',
+          validateStatus(response, result) {
+            console.log('getNotes status', response.status);
+            return response.status === 200 && !result.isError;
+          }
+        };
       },
       transformResponse(responseData) {
         // create id from _id

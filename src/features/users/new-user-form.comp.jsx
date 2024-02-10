@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import HashLoader from 'react-spinners/HashLoader';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave } from '@fortawesome/free-solid-svg-icons';
@@ -11,10 +12,8 @@ const USER_REGEX = /^[A-z]{3,20}$/;
 const PASS_REGEX = /^[A-z0-9!@#$%]{6,12}$/;
 
 export default function NewUserForm() {
-  const [
-    addNewUser,
-    { isLoading, isSuccess, isError, error }
-  ] = useAddNewUserMutation();
+  const [addNewUser, { isLoading, isSuccess, isError, error }] =
+    useAddNewUserMutation();
 
   const navigate = useNavigate();
 
@@ -74,7 +73,7 @@ export default function NewUserForm() {
   const validPassClass = !validPassword ? 'form__input--incomplete' : '';
   const validRolesClass = !roles.length ? 'form__input--incomplete' : '';
 
-  if (isLoading) return <p>/users/new. Loading...</p>;
+  if (isLoading) return <HashLoader color="#fff" />;
 
   return (
     <>

@@ -1,8 +1,5 @@
-// import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-
-// import { selectAllUsers } from '../users/usersApiSlice';
-// import { selectNoteById } from './notesApiSlice';
+import HashLoader from 'react-spinners/HashLoader';
 
 import EditNoteForm from './edit-note-form.comp';
 import useAuth from '../../hooks/useAuth';
@@ -26,9 +23,6 @@ export default function EditNote() {
     })
   });
 
-  // const note = useSelector(state => selectNoteById(state, id));
-  // const users = useSelector(selectAllUsers);
-
   // && ?
   if (!isManager && !isAdmin) {
     if (note.username !== username) {
@@ -38,5 +32,5 @@ export default function EditNote() {
 
   if (note && users?.length) return <EditNoteForm note={note} users={users} />;
 
-  return <p> /notes/:id. No Note or User</p>;
+  return <HashLoader color="#fff" />;
 }

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
+import HashLoader from 'react-spinners/HashLoader';
 
 export default function Welcome() {
   const { username, isAdmin, isManager } = useAuth();
@@ -13,7 +14,8 @@ export default function Welcome() {
   return (
     <section className="welcome">
       <p>{today}</p>
-      <h1>Welcome! {username}</h1>
+      <h1>Welcome! {username} </h1>
+      <HashLoader color="#fff" />
       <p>
         <Link to="/dash/notes">[ View ] - techNotes</Link>
       </p>

@@ -1,7 +1,7 @@
 {
   "name": "techfix",
   "private": false,
-  "version": "1.0.0",
+  "version": "1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -21,6 +21,7 @@
     "react-dom": "18.2.0",
     "react-redux": "7.2.9",
     "react-router-dom": "6.22.3",
+    "react-spinners": "0.13.8",
     "redux-logger": "3.0.6"
   },
   "devDependencies": {

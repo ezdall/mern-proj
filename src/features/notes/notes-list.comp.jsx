@@ -1,4 +1,5 @@
 import { useGetNotesQuery } from './notesApiSlice';
+import HashLoader from 'react-spinners/HashLoader';
 
 import MemoNote from './note.comp';
 import useAuth from '../../hooks/useAuth';
@@ -19,7 +20,7 @@ export default function NoteList() {
 
   const { username, isManager, isAdmin } = useAuth();
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <HashLoader color="#fff" />;
 
   if (isError)
     return (
