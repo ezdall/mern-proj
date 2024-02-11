@@ -20,7 +20,6 @@ export const notesApiSlice = apiSlice.injectEndpoints({
         return {
           url: '/notes',
           validateStatus(response, result) {
-            console.log('getNotes status', response.status);
             return response.status === 200 && !result.isError;
           }
         };

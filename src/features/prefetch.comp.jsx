@@ -7,8 +7,6 @@ import { usersApiSlice } from './users/usersApiSlice';
 
 export default function Prefetch() {
   useEffect(() => {
-    console.log('prefetch');
-
     store.dispatch(
       notesApiSlice.util.prefetch('getNotes', 'notesList', { force: true })
     );

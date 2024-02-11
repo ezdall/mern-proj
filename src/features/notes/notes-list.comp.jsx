@@ -49,8 +49,6 @@ export default function NoteList() {
       ids?.length &&
       filteredIds.map(noteId => <MemoNote key={noteId} noteId={noteId} />);
 
-    console.log(tableContent);
-
     return (
       <>
         <h1>Notes List</h1>

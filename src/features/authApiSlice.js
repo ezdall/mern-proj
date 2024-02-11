@@ -24,10 +24,12 @@ export const authApiSlice = apiSlice.injectEndpoints({
           const { data } = await queryFulfilled;
           console.log('logOut fulfill:', data);
 
-          dispatch(logOut());
+          // to fix bug in logout
+          // clear both, coz they are separate api
           setTimeout(() => {
-            dispatch(apiSlice.util.resetApiState());
-          }, 700);
+            dispatch(logOut()); // clear token
+            dispatch(apiSlice.util.resetApiState()); // clear all
+          }, 750);
         } catch (err) {
           console.log(err);
         }
@@ -43,7 +45,8 @@ export const authApiSlice = apiSlice.injectEndpoints({
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-          console.log('refresh fulfill:', data);
+          console.log('refresh fulfill:');
+          console.log(data);
 
           const { accessToken } = data;
 

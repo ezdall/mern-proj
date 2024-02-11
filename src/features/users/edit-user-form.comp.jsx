@@ -140,7 +140,7 @@ export default function EditUserForm({ user }) {
           </div>
         </div>
         <label className="form__label" htmlFor="username">
-          Username: <span className="nowrap">[3-20 letters]</span>
+          Username: <span className="nowrap">[3-20 letters Only!]</span>
         </label>
         <input
           className={`form__input ${validUserClass}`}
