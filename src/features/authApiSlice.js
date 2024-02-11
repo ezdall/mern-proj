@@ -29,7 +29,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
           setTimeout(() => {
             dispatch(logOut()); // clear token
             dispatch(apiSlice.util.resetApiState()); // clear all
-          }, 750);
+          }, 750); // at least 100ms (base on my test)
         } catch (err) {
           console.log(err);
         }

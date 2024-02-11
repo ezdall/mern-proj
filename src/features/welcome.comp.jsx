@@ -7,8 +7,7 @@ export default function Welcome() {
 
   const date = new Date();
   const today = new Intl.DateTimeFormat('en-US', {
-    dateStyle: 'full',
-    timeStyle: 'long'
+    dateStyle: 'full'
   }).format(date);
 
   return (
@@ -17,10 +16,10 @@ export default function Welcome() {
       <h1>Welcome! {username} </h1>
       <HashLoader color="#fff" />
       <p>
-        <Link to="/dash/notes">[ View ] - techNotes</Link>
+        <Link to="/dash/notes">[ View ] - Note List</Link>
       </p>
       <p>
-        <Link to="/dash/notes/new">[ Add ] - New techNotes</Link>
+        <Link to="/dash/notes/new">[ Add ] - New Note</Link>
       </p>
       {(isManager || isAdmin) && (
         <p>

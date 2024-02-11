@@ -21,10 +21,13 @@ import NoteList from './features/notes/notes-list.comp';
 import NewNote from './features/notes/new-note.comp';
 import EditNote from './features/notes/edit-note.comp';
 
+import useTitle from './hooks/useTitle';
 import { ROLES } from './config/roles';
 
 export default function App() {
   const { Manager, Admin, Employee } = ROLES;
+
+  useTitle('TechFix Solutions');
 
   return (
     <Routes>
