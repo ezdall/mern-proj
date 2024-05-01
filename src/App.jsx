@@ -1,6 +1,5 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
+import ParticlesBg from 'particles-bg';
 
 // comp
 import Layout from './components/layout.comp';
@@ -30,41 +29,46 @@ export default function App() {
   useTitle('TechFix Solutions');
 
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index element={<Public />} />
-        <Route path="login" element={<Login />} />
+    <>
+      <ParticlesBg color="#9bb4f7" type="cobweb" bg />
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Public />} />
+          <Route path="login" element={<Login />} />
 
-        {/* Protecte Routes */}
-        <Route element={<PersistLogin />}>
-          <Route
-            element={<RequireAuth allowedRoles={[Manager, Admin, Employee]} />}
-          >
-            <Route element={<Prefetch />}>
-              <Route path="dash" element={<DashLayout />}>
-                <Route index element={<Welcome />} />
-                {/* /dash/notes/:noteId  */}
-                <Route path="notes">
-                  <Route index element={<NoteList />} />
-                  <Route path="new" element={<NewNote />} />
-                  <Route path=":id" element={<EditNote />} />
-                </Route>
-                {/* /dash/users/:userId  */}
-                <Route
-                  element={<RequireAuth allowedRoles={[Manager, Admin]} />}
-                >
-                  <Route path="users">
-                    <Route index element={<UsersList />} />
-                    <Route path="new" element={<NewUserForm />} />
-                    <Route path=":id" element={<EditUser />} />
+          {/* Protecte Routes */}
+          <Route element={<PersistLogin />}>
+            <Route
+              element={
+                <RequireAuth allowedRoles={[Manager, Admin, Employee]} />
+              }
+            >
+              <Route element={<Prefetch />}>
+                <Route path="dash" element={<DashLayout />}>
+                  <Route index element={<Welcome />} />
+                  {/* /dash/notes/:noteId  */}
+                  <Route path="notes">
+                    <Route index element={<NoteList />} />
+                    <Route path="new" element={<NewNote />} />
+                    <Route path=":id" element={<EditNote />} />
+                  </Route>
+                  {/* /dash/users/:userId  */}
+                  <Route
+                    element={<RequireAuth allowedRoles={[Manager, Admin]} />}
+                  >
+                    <Route path="users">
+                      <Route index element={<UsersList />} />
+                      <Route path="new" element={<NewUserForm />} />
+                      <Route path=":id" element={<EditUser />} />
+                    </Route>
                   </Route>
                 </Route>
               </Route>
             </Route>
           </Route>
+          {/* Protedct-Route End */}
         </Route>
-        {/* Protedct-Route End */}
-      </Route>
-    </Routes>
+      </Routes>
+    </>
   );
 }

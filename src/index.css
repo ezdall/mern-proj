@@ -10,7 +10,12 @@
 
 :root {
   /* COLORS */
-  --BGCOLOR: #0f172a;
+  /* some color 
+   #0f172a;  
+   #051E4E
+   #082164 
+  */
+  --BGCOLOR: #051e4e;
   --BORDER-COLOR: #fff;
   --COLOR: #fff;
   --ERROR: firebrick;
@@ -38,7 +43,7 @@ button {
 }
 
 .errmsg a:any-link {
-  color:  var(--ERROR);
+  color: var(--ERROR);
   text-decoration: underline;
 }
 
@@ -73,10 +78,10 @@ body {
   min-height: 100vh;
   background-color: var(--BGCOLOR);
   color: var(--COLOR);
-  background-image: url('./img/background.jpg');
-  background-size: cover;
-  background-position: top right;
-  background-blend-mode: multiply;
+  /*  background-image: url('./img/background.jpg');*/
+  /*  background-size: cover;*/
+  /*  background-position: top right;*/
+  /*  background-blend-mode: multiply;*/
 }
 
 input,

@@ -67,7 +67,7 @@ export default function Login() {
   return (
     <section>
       <header>
-        <h1>Employee Login</h1>
+        <h1>Login</h1>
       </header>
       <main className="login">
         <p ref={errRef} className={errClass}>

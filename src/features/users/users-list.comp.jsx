@@ -30,7 +30,7 @@ export default function UsersList() {
 
     return (
       <>
-        <h1>UsersList</h1>
+        <h1>Users Settings</h1>
         <table className="table table--users">
           <thead className="table__thead">
             <tr>
