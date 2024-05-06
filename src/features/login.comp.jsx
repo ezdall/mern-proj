@@ -55,8 +55,9 @@ export default function Login() {
       if (err.status === 401) {
         setErrMsg('Unauthorized');
       }
-      setErrMsg(err?.data?.error);
-      errRef?.current.focus();
+
+      setErrMsg(err?.data?.error || err?.data?.message || err?.error);
+      errRef.current?.focus();
     }
   };
 
